@@ -36,25 +36,16 @@ def update_population(pop):
             x, y = healthy_indices[np.random.choice(len(healthy_indices))]
             pop[x, y] = 1  
 
-
-    # print("P_birth_C: ", P_birth_C)
-    # print("P_death_C: ", P_death_C)
-
-
-    total = P_birth_C + P_death_C
-    # print("Total: ", total)
-
-    chance = np.random.rand()
+    random_number = np.random.rand()
 
     # Cancer cell stay the same
-    if chance > total:
+    if random_number > P_birth_C + P_death_C:
         return pop
 
     # Cancer cell either dies or gives birth
     else:
         # Get all cancer indices
         cancer_indices = np.argwhere(pop == 1)
-        # print('Cancer indices first: ', cancer_indices)
         if cancer_indices.size > 0:
 
             #Get the cancer cell
@@ -62,7 +53,7 @@ def update_population(pop):
             x, y = cancer_cell
 
             # Cancer cell births
-            if chance > P_death_C and chance <= total:
+            if random_number <= P_birth_C: 
             #Get all 8 neighbours of the cancer cell
                 neighbours = [(x-1%grid_size, y), (x-1%grid_size, y+1%grid_size), (x,y+1%grid_size), (x+1%grid_size,y+1%grid_size), (x+1%grid_size,y), 
                             (x+1%grid_size,y-1%grid_size), (x,y-1%grid_size), (x-1%grid_size,y-1%N)]
@@ -75,7 +66,5 @@ def update_population(pop):
             # Cancer cell dies
             else:
                 pop[x, y] = 0
-            
-            # print('Cancer indices after: ', np.argwhere(pop == 1))
 
     return pop
