@@ -1,16 +1,19 @@
 # config.py
 
+# Number of possible cells in the grid
+N = 10000  
+
 # Grid size
-N = 100  
+grid_size = 100
 
 # Initial tumor size
-tumor_size = 5  
+tumor_size = 1
 
 # Selection pressure
-w = 0.3  
+w = 0.7  
 
 # Mutation probability
-m = 0.001  
+m = 0.1  
 
 # Number of time steps
 T = 20000  
