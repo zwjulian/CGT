@@ -10,12 +10,16 @@ def initialize_population():
     # Introduce a small tumor at a random location
     random_x = np.random.randint(0, grid_size - tumor_size + 1)
     random_y = np.random.randint(0, grid_size - tumor_size + 1)
-    population[random_x:random_x + tumor_size, random_y:random_y + tumor_size] = 1
+    population[random_x:random_x + tumor_size, random_y:random_y + tumor_size] = np.random.randint(11,16)
     
     return population
 
+def mutate(cell):
+    flip_idx = np.random.randint(4)
+    return cell ^ (1 << flip_idx)
+
 def update_population(pop):
-    i = np.sum(pop)  # Count of cancer cells
+    i = (pop >= 11).sum()  # Count of cancer cells
     
     if i == 0:
         return pop  # If no cancer cells, return early
@@ -31,10 +35,10 @@ def update_population(pop):
 
     # Mutation
     if np.random.rand() < m:
-        healthy_indices = np.argwhere(pop == 0)
+        healthy_indices = np.argwhere(pop < 11)
         if healthy_indices.size > 0:
             x, y = healthy_indices[np.random.choice(len(healthy_indices))]
-            pop[x, y] = 1  
+            pop[x, y] = mutate(pop[x, y])  
 
     random_number = np.random.rand()
 

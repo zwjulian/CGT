@@ -37,7 +37,7 @@ def create_animation(population):
         im1.set_array(population)
 
         # Count the number of cancer cells (number of 1s in population)
-        num_cancer_cells = np.sum(population == 1)
+        num_cancer_cells = np.sum(population >= 11)
         cancer_counts.append(num_cancer_cells)  # Append the count of cancer cells
 
         line.set_data(range(len(cancer_counts)), cancer_counts)  # Update the line data
