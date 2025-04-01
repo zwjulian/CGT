@@ -1,5 +1,5 @@
 import sys
-from config import N, tumor_size, a, b, c, d, m
+from config import N, tumor_size, grid_size, T, a, b, c, d, m
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -15,8 +15,8 @@ def create_animation(population):
     # Setup for the second plot (number of cancer cells over time)
     ax2.set_xlabel('Frames')
     ax2.set_ylabel('Number of Cancer Cells')
-    ax2.set_xlim(0, 1000)
-    ax2.set_ylim(0, 1000)
+    ax2.set_xlim(0, T)
+    ax2.set_ylim(0, N)
 
     cancer_counts = []  # List to store number of cancer cells at each frame
     line, = ax2.plot([], [], label="Cancer Cells Count", color='red')
@@ -45,7 +45,7 @@ def create_animation(population):
         return im1, line 
 
     # Create the animation with a maximum of 1000 frames
-    ani = FuncAnimation(fig, update, frames=1000, init_func=init, repeat=False)
+    ani = FuncAnimation(fig, update, frames=T, init_func=init, repeat=False)
 
     # Show the plot
     plt.show()

@@ -5,13 +5,13 @@ from config import N, tumor_size, grid_size, a, b, c, d, m
 from fitness import fitness
 
 def initialize_population():
-    population = np.zeros((100, 100), dtype=int)
-
+    population = np.zeros((grid_size, grid_size), dtype=int)
     # Introduce a small tumor at a random location
-    random_x = np.random.randint(0, grid_size - tumor_size + 1)
-    random_y = np.random.randint(0, grid_size - tumor_size + 1)
-    population[random_x:random_x + tumor_size, random_y:random_y + tumor_size] = np.random.randint(11,16)
-    
+    random_xs = np.random.choice(range(grid_size - tumor_size + 1), size=2, replace=False)
+    random_ys = np.random.choice(range(grid_size - tumor_size + 1), size=2, replace=False)
+
+    for random_x, random_y in zip(random_xs, random_ys):
+        population[random_x:random_x + tumor_size, random_y:random_y + tumor_size] = np.random.randint(12,16)
     return population
 
 def mutate(cell):
@@ -49,7 +49,7 @@ def update_population(pop):
     # Cancer cell either dies or gives birth
     else:
         # Get all cancer indices
-        cancer_indices = np.argwhere(pop == 1)
+        cancer_indices = np.argwhere(pop > 10)
         if cancer_indices.size > 0:
 
             #Get the cancer cell
@@ -58,14 +58,10 @@ def update_population(pop):
 
             # Cancer cell births
             if random_number <= P_birth_C: 
-            #Get all 8 neighbours of the cancer cell
-                neighbours = [(x-1%grid_size, y), (x-1%grid_size, y+1%grid_size), (x,y+1%grid_size), (x+1%grid_size,y+1%grid_size), (x+1%grid_size,y), 
-                            (x+1%grid_size,y-1%grid_size), (x,y-1%grid_size), (x-1%grid_size,y-1%N)]
-
-                new_cell = np.random.choice(len(neighbours))
-                print('cancer cell indices', x, y)
-                print('New cell: ', neighbours[new_cell])
-                pop[neighbours[new_cell]] = 1
+                healty_indices = np.argwhere(pop <= 11)      
+                new_cell = np.random.choice(len(healty_indices))
+                x,y = healty_indices[new_cell].tolist()
+                pop[x,y] = np.random.randint(12,16)  
             
             # Cancer cell dies
             else:
