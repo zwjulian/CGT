@@ -16,7 +16,7 @@ def create_animation(population):
     ax2.set_xlabel('Frames')
     ax2.set_ylabel('Number of Cancer Cells')
     ax2.set_xlim(0, T)
-    ax2.set_ylim(0, N)
+    ax2.set_ylim(0, 1200)
     ax2.set_xticks(np.arange(0, T+1, 5000))  # or choose another interval if needed
     ax2.set_xticklabels([f"{x/10000:.1f}" for x in np.arange(0, T+1, 5000)])
     ax2.set_xlabel(r'Frames($\times 10^4$)')

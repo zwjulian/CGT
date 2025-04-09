@@ -2,7 +2,7 @@
 import math
 
 # Number of possible cells in the grid
-N = 1200  
+N = 1024 
 
 # Grid size
 grid_size = math.floor(math.sqrt(N))
@@ -23,7 +23,7 @@ T = 40000
 a, b, c, d = 3, 0, 5, 1
 
 # Interval for immunotherapy (in frames)
-immunotherapy_interval = 5000 
+immunotherapy_interval = 50000000 
 
 # Fraction of cancer cells to kill during immunotherapy
-immunotherapy_kill_fraction = 0.2  
+immunotherapy_kill_fraction = 0.6  

@@ -14,7 +14,6 @@ def initialize_population():
     for random_x, random_y in zip(random_xs, random_ys):
         population[random_x:random_x + tumor_size, random_y:random_y + tumor_size] = 16
 
-    print(population)
     return population
 
 def mutate(cell):
